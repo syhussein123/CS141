@@ -1,0 +1,139 @@
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+
+/*     
+This program demonstrates setw, setfill, for loops, and other concepts 
+helpful concepts in C++ that students need to complete the
+first project.
+Class: CS 141, Fall 2023
+System: ZyBook Lab *
+@author Shuroq Hussein
+@version September 2nd, 2023
+Original Art Example (Based on amount of floors user wants -- example made with 5 floors )
+    ___________
+   /           \
+  /             \
+ / Hotel CS141 <3\
+/_________________\
+|[]-[]-[]-[]-[]-[]|
+|_________________|
+|[]-[]-[]-[]-[]-[]|
+|_________________|
+|[]-[]-[]-[]-[]-[]|
+|_________________|
+|[]-[]-[]-[]-[]-[]|
+|_________________|
+|[]-[]-[]-[]-[]-[]|
+|        _        |
+|       | |       |
+|_______|_|_______|
+*/
+
+// -------------------------------------------------------------------
+
+// Main Code - 
+int main() {
+    // The menu output. Don't modify this, so that it outputs exactly as expected
+    cout << "Program 1: Step Pyramids" << endl;
+    cout << "Which option would you like?" << endl;
+    cout << "  1. Display original graphic" << endl;
+    cout << "  2. Display Step Pyramid" << endl;
+    cout << "Your choice: ";
+    
+    // Gathers input for users choice
+    int inputChoice; 
+    cin >> inputChoice; 
+
+ //Student Graphic Code
+    if (inputChoice == 1) {
+        // Variables used throughout the program 
+        int floorAmount;
+        bool buildingFirstTime;
+        buildingFirstTime = true; 
+
+        //Gathering user input for how many floors they want in their building
+        cout << "How many floors do you want your building to be?" << endl;
+        cin >> floorAmount;
+        
+        // if the user inputs 0, it prints out this message
+        if(floorAmount ==0){
+            cout<<"You're so silly! If there's 0 floors, that means there is no building! Haha try running the program again with a number greater than 0! :)" << endl;
+        }
+
+        // Required loop that prints out the correct amount of floors for how mnay the user wants
+        for(int i=1; i<=floorAmount; i++){
+            // roof prints out once no matter how many floors there are
+            if (buildingFirstTime){
+               cout <<"    ___________" << endl;
+                cout<<"   /           \\" << endl;
+                cout<<"  /             \\" << endl;
+                cout<<" / Hotel CS141 <3\\" << endl;
+                cout<<"/_________________\\"<<endl;
+                buildingFirstTime=false;
+            }
+            // this code is outide the if statement because it will be printed based on how many floors there are 
+                cout<<"|[]-[]-[]-[]-[]-[]|"<<endl;
+                
+                // if we are at the last floor of the building, we are going to print out the door, if not, they are going to print out the other half of that floor
+                if (i==floorAmount){
+                    cout<<"|        _        |"<<endl;
+                    cout<<"|       | |       |"<< endl;
+                    cout<<"|_______|_|_______|"<< endl;
+                }
+                else{
+                    cout<<"|_________________|"<<endl;
+                }
+                
+        }
+
+//Step Pyramid Code
+    }
+    else if (inputChoice == 2) { 
+        // The prompt for entering the number of levels, if the user chooses a step pyramid
+        cout << "How many levels should be in the step pyramid? ";
+
+        //Functions used within the program
+
+        
+        //Gathering User Input for how many levels they want for their step pyramid and initializing currentLevel Var
+        int inputLevel; 
+        bool firstTime;
+        firstTime=true;
+        cin >> inputLevel; 
+
+        // if the user inputs the number 0, all that will print is the temple, so we have this instance here
+        if(inputLevel==0){
+            cout << "   _______" << endl;
+            cout << "  |_______|" << endl;
+            cout << "  |  ___  |" << endl;
+            cout << "__|__[_]__|__" << endl;
+        }
+
+        //for loop for printing out the steps of the pyramid 
+        for(int i=1; i<=inputLevel; i++){
+            //variables that do the calculations for the indentation amounts in our pyramid.
+            int indentAmount = 2+(inputLevel-i)*6-1;
+            int indentFromStairs = i*6+4;
+
+            // if its the first time our for loop is being ran through, its going to start with this code since there is no + sign layer and the temple prints out here. 
+            if(firstTime){
+                cout << setw(indentAmount+indentFromStairs+1) << "   _______" << endl;
+                cout << setw(indentAmount+indentFromStairs+2) <<"  |_______|" << endl;
+                cout << setw(indentAmount+indentFromStairs+2) <<"  |  ___  |" << endl;
+                cout << setw(indentAmount+indentFromStairs+4) <<"__|__[_]__|__" << endl;
+                cout << setw(indentAmount+1) << "/" << setw(indentFromStairs-1) << "|===|" << setw(indentFromStairs-5) << "\\" << endl;
+                cout << setw(indentAmount) << "/" << setw(indentFromStairs) << "|===|" << setw(indentFromStairs-4) << "\\"<< endl;
+                firstTime=false;
+            }
+            // for the steps leading up to the temple that aren't the one directly below it, the code utilizes these three lines in comparison to the ones in the condition above
+            else{
+                cout << setfill(' ') << setw(indentAmount+2) << "+" << setw(indentFromStairs-2) << setfill('+') << "|===|" << setw(indentFromStairs-6) << "+" << endl;
+                cout << setfill(' ') << setw(indentAmount+1) << "/" << setw(indentFromStairs-1) << "|===|" << setw(indentFromStairs-5) << "\\" << endl;
+                cout << setfill(' ') << setw(indentAmount) << "/" << setw(indentFromStairs) << "|===|" << setw(indentFromStairs-4) << "\\" << endl;
+            }
+        } 
+    }
+}
